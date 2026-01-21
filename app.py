@@ -30,3 +30,11 @@ def supprimer(id_livre):
     conn.close()
     return "Livre retiré de la bibliothèque."
 
+@app.route('/recherche/<titre>')
+def recherche(titre):
+    conn = get_db_connection()
+    # On cherche les livres qui contiennent le titre spécifié
+    livres = conn.execute('SELECT * FROM livres WHERE titre LIKE ?', ('%' + titre + '%',)).fetchall()
+    conn.close()
+    return render_template('bibliotheque.html', livres=livres)
+
