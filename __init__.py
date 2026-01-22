@@ -4,6 +4,11 @@ import sqlite3
 app = Flask(__name__)                                                                                                                                                                                                                                    
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'  # Clé secrète pour les sessions
 
+def get_db_connection():
+    conn = sqlite3.connect('database.db')
+    conn.row_factory = sqlite3.Row # Permet d'accéder aux colonnes par leur nom
+    return conn
+
 # Fonction pour vérifier si l'utilisateur est connecté
 def est_authentifie():
     return session.get('authentifie')
