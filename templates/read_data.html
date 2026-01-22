@@ -1,31 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <title>Bibliothèque Numérique</title>
+    <meta charset="UTF-8">
+    <title>Espace Membre - Bibliothèque</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <style>
+        .welcome-card { border-left: 5px solid #0076d1; padding: 20px; background: #1f2428; border-radius: 0 10px 10px 0; }
+        .role-badge { background: #0076d1; color: white; padding: 2px 8px; border-radius: 5px; font-size: 0.8em; }
+        .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+    </style>
 </head>
 <body>
-    <h1>📚 Inventaire de la Bibliothèque</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Titre du Livre</th>
-                <th>Auteur</th>
-                <th>Disponibilité</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in data %}
-            <tr>
-                <td>{{ row[0] }}</td>
-                <td><strong>{{ row[1] }}</strong></td>
-                <td>{{ row[2] }}</td>
-                <td>{{ '✅ En rayon' if row[3] == 1 else '❌ Emprunté' }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <a href="/">Retour au menu</a>
+    <div class="welcome-card">
+        <h1>👋 Bienvenue, {{ session.get('username') }} !</h1>
+        <p>Statut : <span class="role-badge">{{ session.get('role')|upper }}</span></p>
+    </div>
+
+    <section>
+        <h2>Que souhaitez-vous faire ?</h2>
+        <div class="action-grid">
+            <a href="/consultation/" class="button">📖 Voir la Collection</a>
+            
+            {% if session.get('role') == 'admin' %}
+                <a href="/enregistrer_livre" class="button">➕ Ajouter un Livre</a>
+            {% endif %}
+            
+            <a href="/taches" class="button">📝 Gérer les Tâches</a>
+            <a href="/" class="button ghost">🏠 Retour Accueil</a>
+        </div>
+    </section>
+
+    <footer style="margin-top: 40px; text-align: center;">
+        <hr>
+        <p><a href="/deconnexion" style="color: #ff5555;">Se déconnecter</a></p>
+    </footer>
 </body>
 </html>
