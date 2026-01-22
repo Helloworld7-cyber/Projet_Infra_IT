@@ -1,25 +1,29 @@
 import sqlite3
 
-# Connexion à la base (le fichier sera créé s'il n'existe pas)
 connection = sqlite3.connect('database.db')
 
-# Lecture du fichier schema.sql pour créer la table 'livres'
+# 1. On lance le schema.sql (assure-toi qu'il utilise "CREATE TABLE IF NOT EXISTS")
 with open('schema.sql') as f:
     connection.executescript(f.read())
 
 cur = connection.cursor()
 
-# --- INSERTION DES LIVRES (Séquence 6) ---
-cur.execute("INSERT INTO livres (titre, auteur, disponible) VALUES (?, ?, ?)", 
-            ('Le Petit Prince', 'Antoine de Saint-Exupéry', 1))
-cur.execute("INSERT INTO livres (titre, auteur, disponible) VALUES (?, ?, ?)", 
-            ('1984', 'George Orwell', 1))
-cur.execute("INSERT INTO livres (titre, auteur, disponible) VALUES (?, ?, ?)", 
-            ('Le Seigneur des Anneaux', 'J.R.R. Tolkien', 1))
-cur.execute("INSERT INTO livres (titre, auteur, disponible) VALUES (?, ?, ?)", 
-            ('Germinal', 'Émile Zola', 1))
+# 2. On vérifie si la table livres est vide avant d'insérer (pour éviter les doublons)
+cur.execute("SELECT count(*) FROM livres")
+if cur.fetchone()[0] == 0:
+    print("Insertion des livres de test...")
+    cur.execute("INSERT INTO livres (titre, auteur, disponible) VALUES (?, ?, ?)", 
+                ('Le Petit Prince', 'Antoine de Saint-Exupéry', 1))
+    cur.execute("INSERT INTO livres (titre, auteur, disponible) VALUES (?, ?, ?)", 
+                ('1984', 'George Orwell', 1))
 
-# On enregistre les changements et on ferme
+# 3. Insertion d'une tâche de test (Optionnel - Mini-Projet) [cite: 1, 8]
+cur.execute("SELECT count(*) FROM taches")
+if cur.fetchone()[0] == 0:
+    print("Insertion d'une tâche de test...")
+    cur.execute("INSERT INTO taches (titre, description, echeance) VALUES (?, ?, ?)",
+                ('Finir le projet IT', 'Coder les routes de la bibliothèque', '2024-06-01'))
+
 connection.commit()
 connection.close()
-print("Base de données de la bibliothèque initialisée avec succès !")
+print("Base de données (Livres + Tâches) prête !")
