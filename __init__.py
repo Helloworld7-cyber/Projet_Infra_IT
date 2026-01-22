@@ -18,6 +18,11 @@ def est_authentifie():
 def hello_world():
     return render_template('hello.html')
 
+@app.route('/deconnexion')
+def deconnexion():
+    session.clear() # Vide la session (username, role, etc.)
+    return redirect(url_for('hello_world'))
+
 @app.route('/lecture')
 def lecture():
     if not est_authentifie():
