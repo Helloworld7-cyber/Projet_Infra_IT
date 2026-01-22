@@ -92,3 +92,41 @@ def enregistrer_livre():
 
 if __name__ == "__main__":
   app.run(debug=True)
+
+# --- ROUTES DU MINI GESTIONNAIRE DE TÂCHES ---
+
+@app.route('/taches')
+def liste_taches():
+    conn = get_db_connection()
+    taches = conn.execute('SELECT * FROM taches').fetchall()
+    conn.close()
+    return render_template('gestion_taches.html', taches=taches)
+
+@app.route('/taches/ajouter', methods=['POST'])
+def ajouter_tache():
+    titre = request.form['titre']
+    description = request.form['description']
+    echeance = request.form['echeance']
+    
+    conn = get_db_connection()
+    conn.execute('INSERT INTO taches (titre, description, echeance) VALUES (?, ?, ?)',
+                 (titre, description, echeance))
+    conn.commit()
+    conn.close()
+    return redirect('/taches')
+
+@app.route('/taches/terminer/<int:id>')
+def terminer_tache(id):
+    conn = get_db_connection()
+    conn.execute('UPDATE taches SET terminee = 1 WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+    return redirect('/taches')
+
+@app.route('/taches/supprimer/<int:id>')
+def supprimer_tache(id):
+    conn = get_db_connection()
+    conn.execute('DELETE FROM taches WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+    return redirect('/taches')
