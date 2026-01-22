@@ -95,9 +95,6 @@ def enregistrer_livre():
         
     return render_template('formulaire_livre.html') # Assurez-vous d'avoir ce template
 
-if __name__ == "__main__":
-  app.run(debug=True)
-
 # --- ROUTES DU MINI GESTIONNAIRE DE TÂCHES ---
 
 @app.route('/taches')
@@ -135,3 +132,7 @@ def supprimer_tache(id):
     conn.commit()
     conn.close()
     return redirect('/taches')
+
+
+if __name__ == "__main__":
+  app.run(debug=True)
