@@ -1,28 +1,31 @@
-<!DOCTYPE>
-<html lang="fr">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Clients</title>
+    <title>Bibliothèque Numérique</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
 </head>
 <body>
-    <h1>Liste des Clients</h1>
+    <h1>📚 Inventaire de la Bibliothèque</h1>
     <table>
-        <tr>
-            <th>ID</th>
-            <th>Création</th>
-            <th>Nom</th>
-            <th>Prénom</th>
-            <th>Adresse</th>
-        </tr>
-        {% for row in data %}
-        <tr>
-            <td>{{ row[0] }}</td>
-            <td>{{ row[1] }}</td>
-            <td>{{ row[2] }}</td>
-            <td>{{ row[3] }}</td>
-            <td>{{ row[4] }}</td>
-        </tr>
-        {% endfor %}
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titre du Livre</th>
+                <th>Auteur</th>
+                <th>Disponibilité</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{ row[0] }}</td>
+                <td><strong>{{ row[1] }}</strong></td>
+                <td>{{ row[2] }}</td>
+                <td>{{ '✅ En rayon' if row[3] == 1 else '❌ Emprunté' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
+    <a href="/">Retour au menu</a>
 </body>
 </html>
