@@ -12,6 +12,7 @@ def get_db_connection():
 # Fonction pour vérifier si l'utilisateur est connecté
 def est_authentifie():
     return session.get('authentifie')
+    
 
 @app.route('/')
 def hello_world():
