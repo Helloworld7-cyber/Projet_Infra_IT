@@ -1,3 +1,44 @@
-<!doctype html>
-<title>Flask Server</title>
-<h1> Hello from Flask Server !</h1>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mon Portail Projets IT</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <style>
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; }
+        .project-card { 
+            border: 1px solid #444; padding: 20px; border-radius: 12px; 
+            text-align: center; transition: transform 0.2s; 
+        }
+        .project-card:hover { transform: scale(1.02); border-color: #0076d1; }
+        .icon { font-size: 3em; margin-bottom: 10px; display: block; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🚀 Portail de Gestion</h1>
+        <p>Bienvenue sur votre espace de travail collaboratif.</p>
+    </header>
+
+    <div class="dashboard-grid">
+        <div class="project-card">
+            <span class="icon">📖</span>
+            <h2>Bibliothèque</h2>
+            <p>Gestion des stocks, emprunts et recherche de livres.</p>
+            <a href="/consultation/" class="button">Accéder à la collection</a>
+        </div>
+
+        <div class="project-card">
+            <span class="icon">📝</span>
+            <h2>Gestionnaire de Tâches</h2>
+            <p>Ajout, consultation et suivi des tâches collaboratives.</p>
+            <a href="/taches" class="button">Gérer mes tâches</a>
+        </div>
+    </div>
+
+    <footer>
+        <hr>
+        <p style="text-align:center;">Accès sécurisé : <a href="/authentification">Se connecter (Admin)</a></p>
+    </footer>
+</body>
+</html>
