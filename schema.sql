@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS livres;
+DROP TABLE IF EXISTS taches;
 
 CREATE TABLE livres (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -6,4 +7,13 @@ CREATE TABLE livres (
     auteur TEXT NOT NULL,
     disponible BOOLEAN DEFAULT 1,
     stock INTEGER DEFAULT 1
+);
+
+
+CREATE TABLE IF NOT EXISTS taches (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    titre TEXT NOT NULL,
+    description TEXT,
+    echeance DATE,
+    terminee BOOLEAN DEFAULT 0
 );
