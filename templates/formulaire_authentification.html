@@ -2,20 +2,34 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Authentification</title>
+    <title>Connexion - Portail IT</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <style>
+        .login-container { max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #444; border-radius: 10px; }
+        .error-msg { color: #ff5555; background: #331111; padding: 10px; border-radius: 5px; text-align: center; }
+        h1 { text-align: center; }
+        .back-link { display: block; text-align: center; margin-top: 15px; font-size: 0.9em; }
+    </style>
 </head>
 <body>
-    <h2>Authentification</h2>
-    {% if error %}
-        <p style="color: red;">Identifiant ou mot de passe incorrect.</p>
-    {% endif %}
-    <form action="{{ url_for('authentification') }}" method="post">
-        <label for="username">Nom d'utilisateur:</label><br>
-        <input type="text" id="username" name="username"><br>
-        <label for="password">Mot de passe:</label><br>
-        <input type="password" id="password" name="password"><br><br>
-        <input type="submit" value="Se connecter">
-    </form>
+    <div class="login-container">
+        <h1>🔐 Connexion</h1>
+        
+        {% if error %}
+        <p class="error-msg">⚠️ Identifiants incorrects. Réessayez.</p>
+        {% endif %}
+
+        <form method="POST">
+            <label for="username">Nom d'utilisateur :</label>
+            <input type="text" id="username" name="username" placeholder="ex: admin" required>
+
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" name="password" placeholder="••••••••" required>
+
+            <button type="submit" style="width: 100%;">Se connecter</button>
+        </form>
+
+        <a href="/" class="back-link">← Retour à l'accueil</a>
+    </div>
 </body>
 </html>
