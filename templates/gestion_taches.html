@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestionnaire de Tâches</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+</head>
+<body>
+    <h1>📝 Mes Tâches Collaboratives</h1>
+    
+    <form action="/taches/ajouter" method="POST">
+        <input type="text" name="titre" placeholder="Titre de la tâche" required>
+        <textarea name="description" placeholder="Description"></textarea>
+        <input type="date" name="echeance">
+        <button type="submit">Ajouter la tâche</button>
+    </form>
+
+    <hr>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Échéance</th>
+                <th>Statut</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tache in taches %}
+            <tr>
+                <td>{{ tache.titre }}</td>
+                <td>{{ tache.description }}</td>
+                <td>{{ tache.echeance }}</td>
+                <td>{{ '✅' if tache.terminee else '⏳' }}</td>
+                <td>
+                    <a href="/taches/terminer/{{ tache.id }}">Fait</a> | 
+                    <a href="/taches/supprimer/{{ tache.id }}" style="color:red">Supprimer</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <a href="/">Retour à l'accueil</a>
+</body>
+</html>
